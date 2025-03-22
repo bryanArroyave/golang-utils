@@ -2,14 +2,12 @@ package app
 
 import (
 	"context"
-	"fmt"
 
 	appdtos "github.com/bryanArroyave/golang-utils/app/dtos"
 	"github.com/bryanArroyave/golang-utils/logger/adapter/singleton"
 	"github.com/bryanArroyave/golang-utils/logger/ports"
 	mongoadapter "github.com/bryanArroyave/golang-utils/mongo"
 	"github.com/bryanArroyave/golang-utils/mongo/dtos"
-	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -19,10 +17,6 @@ type App struct {
 }
 
 func NewApp(config *appdtos.LoggerConfigDTO) *App {
-
-	err := godotenv.Load()
-
-	fmt.Println(err)
 
 	app := &App{}
 	app.initLogger(config)
