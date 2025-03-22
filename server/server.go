@@ -6,10 +6,10 @@ import (
 	"strings"
 	"time"
 
-	appadapter "github.com/bryanArroyave/eventsplit/back/common/app"
-	loggerdtos "github.com/bryanArroyave/eventsplit/back/common/logger/dtos"
-	serverdtos "github.com/bryanArroyave/eventsplit/back/common/server/dtos"
-	"github.com/bryanArroyave/eventsplit/back/common/server/ports"
+	appadapter "github.com/bryanArroyave/golang-utils/app"
+	loggerdtos "github.com/bryanArroyave/golang-utils/logger/dtos"
+	serverdtos "github.com/bryanArroyave/golang-utils/server/dtos"
+	"github.com/bryanArroyave/golang-utils/server/ports"
 
 	"github.com/labstack/echo/v4"
 )

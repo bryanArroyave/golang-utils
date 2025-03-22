@@ -1,8 +1,8 @@
 package zerolog
 
 import (
-	"github.com/bryanArroyave/eventsplit/back/common/logger/dtos"
-	"github.com/bryanArroyave/eventsplit/back/common/logger/ports"
+	"github.com/bryanArroyave/golang-utils/logger/dtos"
+	"github.com/bryanArroyave/golang-utils/logger/ports"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 )

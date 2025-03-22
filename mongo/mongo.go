@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/bryanArroyave/eventsplit/back/common/mongo/dtos"
+	"github.com/bryanArroyave/golang-utils/mongo/dtos"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )

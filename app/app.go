@@ -4,11 +4,11 @@ import (
 	"context"
 	"fmt"
 
-	appdtos "github.com/bryanArroyave/eventsplit/back/common/app/dtos"
-	"github.com/bryanArroyave/eventsplit/back/common/logger/adapter/singleton"
-	"github.com/bryanArroyave/eventsplit/back/common/logger/ports"
-	mongoadapter "github.com/bryanArroyave/eventsplit/back/common/mongo"
-	"github.com/bryanArroyave/eventsplit/back/common/mongo/dtos"
+	appdtos "github.com/bryanArroyave/golang-utils/app/dtos"
+	"github.com/bryanArroyave/golang-utils/logger/adapter/singleton"
+	"github.com/bryanArroyave/golang-utils/logger/ports"
+	mongoadapter "github.com/bryanArroyave/golang-utils/mongo"
+	"github.com/bryanArroyave/golang-utils/mongo/dtos"
 	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/mongo"
 )

@@ -1,10 +1,10 @@
 package factory
 
 import (
-	"github.com/bryanArroyave/eventsplit/back/common/logger/adapter/fmt"
-	"github.com/bryanArroyave/eventsplit/back/common/logger/adapter/zerolog"
-	"github.com/bryanArroyave/eventsplit/back/common/logger/enums"
-	"github.com/bryanArroyave/eventsplit/back/common/logger/ports"
+	"github.com/bryanArroyave/golang-utils/logger/adapter/fmt"
+	"github.com/bryanArroyave/golang-utils/logger/adapter/zerolog"
+	"github.com/bryanArroyave/golang-utils/logger/enums"
+	"github.com/bryanArroyave/golang-utils/logger/ports"
 )
 
 func NewLogger(loggerType enums.LoggerType, serviceName string) ports.ILogger {

@@ -1,8 +1,8 @@
 package dtos
 
 import (
-	"github.com/bryanArroyave/eventsplit/back/common/logger/enums"
-	mongodtos "github.com/bryanArroyave/eventsplit/back/common/mongo/dtos"
+	"github.com/bryanArroyave/golang-utils/logger/enums"
+	mongodtos "github.com/bryanArroyave/golang-utils/mongo/dtos"
 )
 
 type AppConfigDTO struct {

@@ -1,8 +1,8 @@
 package dtos
 
 import (
-	appadapter "github.com/bryanArroyave/eventsplit/back/common/app"
-	"github.com/bryanArroyave/eventsplit/back/common/server/ports"
+	appadapter "github.com/bryanArroyave/golang-utils/app"
+	"github.com/bryanArroyave/golang-utils/server/ports"
 )
 
 type APIRestServerConfigDTO struct {

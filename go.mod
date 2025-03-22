@@ -1,4 +1,4 @@
-module github.com/bryanArroyave/eventsplit/back/common
+module github.com/bryanArroyave/golang-utils
 
 go 1.23.6
 

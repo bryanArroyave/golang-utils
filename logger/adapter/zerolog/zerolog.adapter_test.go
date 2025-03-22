@@ -4,7 +4,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/bryanArroyave/eventsplit/back/common/logger/dtos"
+	"github.com/bryanArroyave/golang-utils/logger/dtos"
 )
 
 func TestPrueb(t *testing.T) {

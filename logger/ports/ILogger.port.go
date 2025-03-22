@@ -1,6 +1,6 @@
 package ports
 
-import "github.com/bryanArroyave/eventsplit/back/common/logger/dtos"
+import "github.com/bryanArroyave/golang-utils/logger/dtos"
 
 type ILogger interface {
 	Info(message string, fields ...*dtos.LoggerFieldsDTO)

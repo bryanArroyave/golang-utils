@@ -1,9 +1,9 @@
 package singleton
 
 import (
-	"github.com/bryanArroyave/eventsplit/back/common/logger/enums"
-	"github.com/bryanArroyave/eventsplit/back/common/logger/factory"
-	"github.com/bryanArroyave/eventsplit/back/common/logger/ports"
+	"github.com/bryanArroyave/golang-utils/logger/enums"
+	"github.com/bryanArroyave/golang-utils/logger/factory"
+	"github.com/bryanArroyave/golang-utils/logger/ports"
 )
 
 var (

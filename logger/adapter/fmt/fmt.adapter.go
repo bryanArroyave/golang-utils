@@ -3,8 +3,8 @@ package fmt
 import (
 	"fmt"
 
-	"github.com/bryanArroyave/eventsplit/back/common/logger/dtos"
-	"github.com/bryanArroyave/eventsplit/back/common/logger/ports"
+	"github.com/bryanArroyave/golang-utils/logger/dtos"
+	"github.com/bryanArroyave/golang-utils/logger/ports"
 )
 
 type FmtLoggerAdapter struct {

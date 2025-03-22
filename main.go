@@ -3,12 +3,12 @@ package main
 import (
 	"os"
 
-	appadapter "github.com/bryanArroyave/eventsplit/back/common/app"
-	appdtos "github.com/bryanArroyave/eventsplit/back/common/app/dtos"
-	mongodtos "github.com/bryanArroyave/eventsplit/back/common/mongo/dtos"
-	"github.com/bryanArroyave/eventsplit/back/common/server"
-	serverdtos "github.com/bryanArroyave/eventsplit/back/common/server/dtos"
-	"github.com/bryanArroyave/eventsplit/back/common/server/ports"
+	appadapter "github.com/bryanArroyave/golang-utils/app"
+	appdtos "github.com/bryanArroyave/golang-utils/app/dtos"
+	mongodtos "github.com/bryanArroyave/golang-utils/mongo/dtos"
+	"github.com/bryanArroyave/golang-utils/server"
+	serverdtos "github.com/bryanArroyave/golang-utils/server/dtos"
+	"github.com/bryanArroyave/golang-utils/server/ports"
 	"github.com/labstack/echo/v4"
 	"go.mongodb.org/mongo-driver/mongo"
 )
