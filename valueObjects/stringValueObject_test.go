@@ -1,6 +1,7 @@
 package valueobjects
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -74,4 +75,20 @@ func TestStringValueObject(t *testing.T) {
 
 	})
 
+	t.Run("include values", func(t *testing.T) {
+		j := NewStringValueObject("Journey").Include([]string{"Journey", "JourneyName"})
+		val, err := j.Value()
+		assert.True(t, j.isValid())
+		assert.Nil(t, err)
+		assert.Equal(t, val, "Journey")
+	})
+
+	t.Run("invalid include values", func(t *testing.T) {
+		j := NewStringValueObject("Journey").Include([]string{"JourneyName", "Prueba"})
+		val, err := j.Value()
+		assert.False(t, j.isValid())
+		assert.Error(t, err)
+		fmt.Println(err.Error())
+		assert.Equal(t, val, "")
+	})
 }

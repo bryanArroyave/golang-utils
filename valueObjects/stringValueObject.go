@@ -14,6 +14,7 @@ type StringValueObject struct {
 	hasMinValidation bool
 	pattern          string
 	hasPattern       bool
+	includeValues    []string
 }
 
 func NewStringValueObject(value string) *StringValueObject {
@@ -30,25 +31,21 @@ func NewStringValueObject(value string) *StringValueObject {
 }
 
 func (s *StringValueObject) MaxLength(length int) *StringValueObject {
-
 	s.maxLength = length
 	s.hasMaxValidation = true
 	return s
 }
 
 func (s *StringValueObject) MinLength(length int) *StringValueObject {
-
 	s.minLength = length
 	s.hasMinValidation = true
 	return s
 }
 
 func (s *StringValueObject) Pattern(pattern string) *StringValueObject {
-
 	s.pattern = pattern
 	s.hasPattern = true
 	return s
-
 }
 
 func (s *StringValueObject) Optional() *StringValueObject {
@@ -56,10 +53,16 @@ func (s *StringValueObject) Optional() *StringValueObject {
 	return s
 }
 
+func (s *StringValueObject) Include(values []string) *StringValueObject {
+	s.includeValues = values
+	return s
+}
+
 func (s *StringValueObject) validate() {
 	s.validateMaxLength()
 	s.validateMinLength()
 	s.validatePattern()
+	s.validateInclude()
 }
 
 func (s *StringValueObject) validateMaxLength() {
@@ -103,6 +106,27 @@ func (s *StringValueObject) validatePattern() {
 
 		if !match {
 			s.errors = append(s.errors, customerrors.NewPatternError())
+		}
+	}
+}
+
+func (s *StringValueObject) validateInclude() {
+
+	if *s.value == "" && s.optional {
+		return
+	}
+
+	if len(s.includeValues) > 0 {
+		include := false
+		for _, value := range s.includeValues {
+			if *s.value == value {
+				include = true
+				break
+			}
+		}
+
+		if !include {
+			s.errors = append(s.errors, customerrors.NewIncludeError(s.includeValues))
 		}
 	}
 }
