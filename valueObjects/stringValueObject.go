@@ -53,7 +53,7 @@ func (s *StringValueObject) Optional() *StringValueObject {
 	return s
 }
 
-func (s *StringValueObject) Include(values []string) *StringValueObject {
+func (s *StringValueObject) Include(values ...string) *StringValueObject {
 	s.includeValues = values
 	return s
 }

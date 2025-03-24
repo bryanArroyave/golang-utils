@@ -76,7 +76,7 @@ func TestStringValueObject(t *testing.T) {
 	})
 
 	t.Run("include values", func(t *testing.T) {
-		j := NewStringValueObject("Journey").Include([]string{"Journey", "JourneyName"})
+		j := NewStringValueObject("Journey").Include("Journey", "JourneyName")
 		val, err := j.Value()
 		assert.True(t, j.isValid())
 		assert.Nil(t, err)
@@ -84,7 +84,7 @@ func TestStringValueObject(t *testing.T) {
 	})
 
 	t.Run("invalid include values", func(t *testing.T) {
-		j := NewStringValueObject("Journey").Include([]string{"JourneyName", "Prueba"})
+		j := NewStringValueObject("Journey").Include("JourneyName", "Prueba")
 		val, err := j.Value()
 		assert.False(t, j.isValid())
 		assert.Error(t, err)
