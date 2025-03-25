@@ -33,3 +33,11 @@ func (s *BaseValueObject[T]) Value() (T, error) {
 
 	return *s.value, nil
 }
+
+func (s *BaseValueObject[T]) InecureValue() T {
+	if s.value == nil {
+		var zero T
+		return zero
+	}
+	return *s.value
+}
