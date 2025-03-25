@@ -129,3 +129,7 @@ func (api *APIRestServer) RunServer() {
 
 	api.echoInstance.Logger.Fatal(api.echoInstance.Start(":" + api.port))
 }
+
+func (api *APIRestServer) GetEchoInstance() *echo.Echo {
+	return api.echoInstance
+}
