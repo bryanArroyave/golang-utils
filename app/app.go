@@ -4,6 +4,8 @@ import (
 	"context"
 
 	appdtos "github.com/bryanArroyave/golang-utils/app/dtos"
+	"github.com/bryanArroyave/golang-utils/events/enums"
+	eventsfactory "github.com/bryanArroyave/golang-utils/events/factory"
 	"github.com/bryanArroyave/golang-utils/gorm/dtos"
 	"github.com/bryanArroyave/golang-utils/gorm/ports"
 	"github.com/bryanArroyave/golang-utils/gorm/postgres"
@@ -18,6 +20,7 @@ type App struct {
 	logger            loggerports.ILogger
 	mongoInstances    map[string]*mongo.Database
 	postgresInstances map[string]ports.IDBManager
+	messageBrokers    map[string]*eventsfactory.MessageBroker
 }
 
 func NewApp(config *appdtos.LoggerConfigDTO) *App {
@@ -30,6 +33,20 @@ func NewApp(config *appdtos.LoggerConfigDTO) *App {
 func (a *App) initLogger(config *appdtos.LoggerConfigDTO) {
 	singleton.InitLogger(config.LoggerType, config.ServiceName)
 	a.logger = singleton.GetLogger()
+}
+
+func (a *App) AddMessageBroker(name string, adapterType enums.BrokerType, config *eventsfactory.FactoryConfig) *App {
+	if a.messageBrokers == nil {
+		a.messageBrokers = make(map[string]*eventsfactory.MessageBroker)
+	}
+
+	broker, err := eventsfactory.NewMessageBroker(adapterType, config)
+	if err != nil {
+		panic(err)
+	}
+
+	a.messageBrokers[name] = broker
+	return a
 }
 
 func (a *App) AddMongoConnection(name string, config *mongodtos.MongoConnectionDTO) *App {
@@ -77,4 +94,8 @@ func (a *App) GetMongoConnection(name string) *mongo.Database {
 
 func (a *App) GetPostgresConnection(name string) ports.IDBManager {
 	return a.postgresInstances[name]
+}
+
+func (a *App) GetMessageBroker(name string) *eventsfactory.MessageBroker {
+	return a.messageBrokers[name]
 }
