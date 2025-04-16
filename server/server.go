@@ -14,57 +14,10 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-// import (
-// 	"log"
-// 	"os"
-// 	"time"
-
-// 	"github.com/labstack/echo/middleware"
-// 	"github.com/labstack/echo/v4"
-// )
-
-// type Server struct {
-// }
-
-// // NewServer inicializa un servidor Echo con configuraciones comunes.
-// func NewServer() *echo.Echo {
-// 	e := echo.New()
-
-// 	// Middleware común
-
-// 	e.Use(func(next echo.HandlerFunc) echo.HandlerFunc {
-// 		return func(c echo.Context) error {
-// 			start := time.Now()
-// 			_ = next(c)
-// 			log.Info().
-// 				Int("status", c.Response().Status).
-// 				Dur("latency", time.Since(start)).
-// 				Str("client_ip", c.RealIP()).
-// 				Str("method", c.Request().Method).
-// 				Str("path", c.Path()).
-// 				Msg("")
-// 			return nil
-// 		}
-// 	})
-
-// 	e.Use(middleware.Recover())
-// 	e.Use(middleware.CORS())
-
-// 	return e
-// }
-
-// // StartServer inicia el servidor en un puerto dado.
-// func StartServer(e *echo.Echo) {
-// 	port := os.Getenv("PORT")
-// 	if port == "" {
-// 		port = "8080"
-// 	}
-// 	log.Fatal(e.Start(":" + port))
-// }
-
 type APIRestServer struct {
 	echoInstance *echo.Echo
-	globalGroup  *echo.Group
+	publicGroup  *echo.Group
+	privateGroup *echo.Group
 	port         string
 	routes       func(*echo.Group)
 	app          *appadapter.App
@@ -79,7 +32,8 @@ func NewAPIRestServer(config *serverdtos.APIRestServerConfigDTO) *APIRestServer 
 
 	return &APIRestServer{
 		echoInstance: e,
-		globalGroup:  e.Group(config.GlobalPrefix),
+		publicGroup:  e.Group(config.GlobalPrefix),
+		privateGroup: e.Group(config.GlobalPrefix),
 		port:         config.Port,
 		app:          config.App,
 		routes: func(group *echo.Group) {
@@ -95,13 +49,13 @@ func NewAPIRestServer(config *serverdtos.APIRestServerConfigDTO) *APIRestServer 
 }
 
 func (api *APIRestServer) AddRoute(prefix string, router ports.IRouter) *APIRestServer {
-	router.Handle(fmt.Sprintf("/%s", prefix), api.globalGroup)
+	router.Handle(fmt.Sprintf("/%s", prefix), api.publicGroup)
 	return api
 }
 
 func (api *APIRestServer) RunServer() {
 
-	api.globalGroup.GET("/healthz", func(c echo.Context) error {
+	api.publicGroup.GET("/healthz", func(c echo.Context) error {
 		return c.JSON(200, map[string]string{"status": "OK"})
 	})
 
@@ -125,11 +79,19 @@ func (api *APIRestServer) RunServer() {
 		}
 	})
 
-	api.routes(api.globalGroup)
+	api.routes(api.publicGroup)
 
 	api.echoInstance.Logger.Fatal(api.echoInstance.Start(":" + api.port))
 }
 
 func (api *APIRestServer) GetEchoInstance() *echo.Echo {
 	return api.echoInstance
+}
+
+func (api *APIRestServer) GetPublicGroup() *echo.Group {
+	return api.publicGroup
+}
+
+func (api *APIRestServer) GetPrivateGroup() *echo.Group {
+	return api.privateGroup
 }
