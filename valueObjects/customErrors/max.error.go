@@ -11,5 +11,5 @@ func NewMaxError[T any](value T) *MaxError[T] {
 }
 
 func (e *MaxError[T]) Error() string {
-	return fmt.Sprintf("max error: %v", e.value)
+	return fmt.Sprintf("the value %v exceeds the maximum allowed limit", e.value)
 }

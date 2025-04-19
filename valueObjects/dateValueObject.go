@@ -14,10 +14,11 @@ type DateValueObject struct {
 	hasMaxValidation bool
 }
 
-func NewDateValueObject(value time.Time) *DateValueObject {
+func NewDateValueObject(name string, value time.Time) *DateValueObject {
 	v := &DateValueObject{}
 
 	base := &BaseValueObject[time.Time]{
+		name:     name,
 		value:    &value,
 		validate: v.validate,
 	}
@@ -58,7 +59,7 @@ func (s *DateValueObject) validateMin() {
 	}
 	if s.hasMinValidation {
 		if s.value.Before(s.minValue) {
-			s.errors = append(s.errors, customerrors.NewMinError(s.minValue))
+			s.AddError(customerrors.NewMinError(s.minValue))
 		}
 	}
 }
@@ -71,7 +72,7 @@ func (s *DateValueObject) validateMax() {
 	}
 	if s.hasMaxValidation {
 		if s.value.After(s.maxValue) {
-			s.errors = append(s.errors, customerrors.NewMaxError(s.maxValue))
+			s.AddError(customerrors.NewMaxError(s.maxValue))
 		}
 	}
 }

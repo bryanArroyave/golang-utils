@@ -11,5 +11,5 @@ func NewMaxLengthError(value int) *MaxLengthError {
 }
 
 func (e *MaxLengthError) Error() string {
-	return fmt.Sprintf("max length error: %d", e.value)
+	return fmt.Sprintf("max length exceeded: value cannot be longer than %d characters", e.value)
 }

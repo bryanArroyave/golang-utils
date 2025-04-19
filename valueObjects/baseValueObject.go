@@ -1,16 +1,17 @@
 package valueobjects
 
-import "errors"
+import (
+	"errors"
+
+	githuberrors "github.com/pkg/errors"
+)
 
 type BaseValueObject[T any] struct {
+	name     string
 	value    *T
 	errors   []error
 	optional bool
 	validate func()
-}
-
-func NewBaseValueObject[T any](value *T) *BaseValueObject[T] {
-	return &BaseValueObject[T]{value: value}
 }
 
 func (s *BaseValueObject[T]) isValid() bool {
@@ -40,4 +41,8 @@ func (s *BaseValueObject[T]) InecureValue() T {
 		return zero
 	}
 	return *s.value
+}
+
+func (s *BaseValueObject[T]) AddError(err error) {
+	s.errors = append(s.errors, githuberrors.Wrap(err, s.name))
 }

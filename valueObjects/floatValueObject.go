@@ -12,12 +12,13 @@ type FloatValueObject struct {
 	hasMaxValidation bool
 }
 
-func NewFloatValueObject(value float64) *FloatValueObject {
+func NewFloatValueObject(name string, value float64) *FloatValueObject {
 	v := &FloatValueObject{}
 
 	base := &BaseValueObject[float64]{
 		value:    &value,
 		validate: v.validate,
+		name:     name,
 	}
 
 	v.BaseValueObject = base
@@ -55,7 +56,7 @@ func (s *FloatValueObject) validateMin() {
 	}
 	if s.hasMinValidation {
 		if *s.value < s.minValue {
-			s.errors = append(s.errors, customerrors.NewMinError(s.minValue))
+			s.AddError(customerrors.NewMinError(s.minValue))
 		}
 	}
 }
@@ -67,7 +68,7 @@ func (s *FloatValueObject) validateMax() {
 	}
 	if s.hasMaxValidation {
 		if *s.value > s.maxValue {
-			s.errors = append(s.errors, customerrors.NewMaxError(s.maxValue))
+			s.AddError(customerrors.NewMaxError(s.maxValue))
 		}
 	}
 }

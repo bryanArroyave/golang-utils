@@ -11,5 +11,5 @@ func NewMinLengthError(value int) *MinLengthError {
 }
 
 func (e *MinLengthError) Error() string {
-	return fmt.Sprintf("min length error: %d", e.value)
+	return fmt.Sprintf("value must have a minimum length of %d", e.value)
 }

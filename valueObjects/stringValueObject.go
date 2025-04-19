@@ -17,10 +17,11 @@ type StringValueObject struct {
 	includeValues    []string
 }
 
-func NewStringValueObject(value string) *StringValueObject {
+func NewStringValueObject(name, value string) *StringValueObject {
 	v := &StringValueObject{}
 
 	base := &BaseValueObject[string]{
+		name:     name,
 		value:    &value,
 		validate: v.validate,
 	}
@@ -73,7 +74,7 @@ func (s *StringValueObject) validateMaxLength() {
 
 	if s.hasMaxValidation {
 		if len(*s.value) > s.maxLength {
-			s.errors = append(s.errors, customerrors.NewMaxLengthError(s.maxLength))
+			s.AddError(customerrors.NewMaxLengthError(s.maxLength))
 		}
 	}
 }
@@ -86,7 +87,7 @@ func (s *StringValueObject) validateMinLength() {
 
 	if s.hasMinValidation {
 		if len(*s.value) < s.minLength {
-			s.errors = append(s.errors, customerrors.NewMinLengthError(s.minLength))
+			s.AddError(customerrors.NewMinLengthError(s.minLength))
 		}
 	}
 }
@@ -101,11 +102,11 @@ func (s *StringValueObject) validatePattern() {
 		match, err := regexp.MatchString(s.pattern, *s.value)
 
 		if err != nil {
-			s.errors = append(s.errors, err)
+			s.AddError(err)
 		}
 
 		if !match {
-			s.errors = append(s.errors, customerrors.NewPatternError())
+			s.AddError(customerrors.NewPatternError())
 		}
 	}
 }
@@ -126,7 +127,7 @@ func (s *StringValueObject) validateInclude() {
 		}
 
 		if !include {
-			s.errors = append(s.errors, customerrors.NewIncludeError(s.includeValues))
+			s.AddError(customerrors.NewIncludeError(s.includeValues))
 		}
 	}
 }

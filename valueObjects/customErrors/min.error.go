@@ -11,5 +11,5 @@ func NewMinError[T any](value T) *MinError[T] {
 }
 
 func (e *MinError[T]) Error() string {
-	return fmt.Sprintf("min error: %v", e.value)
+	return fmt.Sprintf("value is below the minimum allowed(%v)", e.value)
 }

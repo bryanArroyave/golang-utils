@@ -11,5 +11,5 @@ func NewIncludeError[T any](values []T) *IncludeError[T] {
 }
 
 func (e *IncludeError[T]) Error() string {
-	return fmt.Sprintf("should be: %v", e.values)
+	return fmt.Sprintf("value must be one of: %v", e.values)
 }

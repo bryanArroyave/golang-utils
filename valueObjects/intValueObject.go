@@ -12,10 +12,11 @@ type IntValueObject struct {
 	hasMaxValidation bool
 }
 
-func NewIntValueObject(value int) *IntValueObject {
+func NewIntValueObject(name string, value int) *IntValueObject {
 	v := &IntValueObject{}
 
 	base := &BaseValueObject[int]{
+		name:     name,
 		value:    &value,
 		validate: v.validate,
 	}
@@ -55,7 +56,7 @@ func (s *IntValueObject) validateMin() {
 	}
 	if s.hasMinValidation {
 		if *s.value < s.minValue {
-			s.errors = append(s.errors, customerrors.NewMinError(s.minValue))
+			s.AddError(customerrors.NewMinError(s.minValue))
 		}
 	}
 }
@@ -67,7 +68,7 @@ func (s *IntValueObject) validateMax() {
 	}
 	if s.hasMaxValidation {
 		if *s.value > s.maxValue {
-			s.errors = append(s.errors, customerrors.NewMaxError(s.maxValue))
+			s.AddError(customerrors.NewMaxError(s.maxValue))
 		}
 	}
 }

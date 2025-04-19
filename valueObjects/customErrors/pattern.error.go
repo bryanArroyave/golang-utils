@@ -10,5 +10,5 @@ func NewPatternError() *PatternError {
 }
 
 func (e *PatternError) Error() string {
-	return fmt.Sprintf("invalid value")
+	return fmt.Sprintf("invalid pattern format")
 }
